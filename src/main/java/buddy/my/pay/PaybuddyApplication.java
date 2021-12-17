@@ -45,15 +45,15 @@ public class PaybuddyApplication implements CommandLineRunner {
 //		Compte compte3 = compteRepository.save(new Compte("c3", new Date(), 9000, client3));
 //
 //
-//		operationRepository.save(new Versement(new Date(), 9000,"Versement sur mon compte", compte1));
-//		operationRepository.save(new Versement(new Date(), 6000,"Versement sur mon compte", compte1));
-//		operationRepository.save(new Versement(new Date(), 2300,"Versement sur mon compte", compte1));
-//		operationRepository.save(new Retrait(new Date(), 9000,"Retrait de mon compte", compte1));
-//
-//		operationRepository.save(new Versement(new Date(), 2300,"Versement sur mon compte", compte2));
-//		operationRepository.save(new Versement(new Date(), 400,"Versement sur mon compte", compte2));
-//		operationRepository.save(new Versement(new Date(), 2300,"Versement sur mon compte", compte2));
-//		operationRepository.save(new Retrait(new Date(), 3000,"Retrait de mon compte", compte2));
+////		operationRepository.save(new Versement(new Date(), 9000,"Versement sur mon compte", compte1));
+////		operationRepository.save(new Versement(new Date(), 6000,"Versement sur mon compte", compte1));
+////		operationRepository.save(new Versement(new Date(), 2300,"Versement sur mon compte", compte1));
+////		operationRepository.save(new Retrait(new Date(), 9000,"Retrait de mon compte", compte1));
+////
+////		operationRepository.save(new Versement(new Date(), 2300,"Versement sur mon compte", compte2));
+////		operationRepository.save(new Versement(new Date(), 400,"Versement sur mon compte", compte2));
+////		operationRepository.save(new Versement(new Date(), 2300,"Versement sur mon compte", compte2));
+////		operationRepository.save(new Retrait(new Date(), 3000,"Retrait de mon compte", compte2));
 //		
 //		
 //		payMyBuddyMetier.verser("c3", 300,"versement sur mon compte");

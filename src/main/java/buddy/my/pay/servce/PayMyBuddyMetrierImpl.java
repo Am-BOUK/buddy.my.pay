@@ -45,10 +45,10 @@ public class PayMyBuddyMetrierImpl implements IPayMyBuddyMetier {
 	}
 
 	@Override
-	public void retirer(String codeCompte, double montant, String description) {
+	public void retirer(String codeCompte, double montant, String description) throws Exception {
 		Compte cp = consulterCompte(codeCompte);
 		if (cp.getAmount() < montant) {
-			throw new RuntimeException("Solde insuffisant!");
+			throw new Exception("Solde insuffisant!");
 		}
 		Retrait r = new Retrait(new Date(), montant,description, cp);
 		operationRepository.save(r);
@@ -58,7 +58,7 @@ public class PayMyBuddyMetrierImpl implements IPayMyBuddyMetier {
 	}
 
 	@Override
-	public void virement(String codeCompte1, String codeCompte2, double montant, String description) {
+	public void virement(String codeCompte1, String codeCompte2, double montant, String description) throws Exception {
 		retirer(codeCompte1, montant,description);
 		verser(codeCompte2, montant,description);
 

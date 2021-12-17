@@ -16,5 +16,6 @@ public class PayMyBuddyController {
 	public String index() {
 		return "comptes";
 	}
+	
 
 }

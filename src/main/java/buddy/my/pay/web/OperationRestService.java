@@ -101,7 +101,6 @@ public class OperationRestService {
 //		return operationRepository.listOperationByEmail("%" + email + "%", PageRequest.of(page, size));
 //	}
 	
-	/************************************************/
 	/**
 	 * Create - Add a new versement
 	 * 
@@ -115,39 +114,45 @@ public class OperationRestService {
 		v.setAmount(operation.getAmount());
 		v.setCompte(operation.getCompte());
 		v.setDescription(operation.getDescription());
+		
+		payMyBuddyMetier.verser(v.getCompte().getCodeCompte(), v.getAmount(), v.getDescription());
 				
-		return operationRepository.save(v);
+		return operation;
 	}
 	
-	/************************************************/
 	/**
 	 * Create - Add a new retrait
 	 * 
 	 * @param operation 
 	 * @return operation object added
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/operation/retrait", method = RequestMethod.POST)
-	public Operation saveRetrait(@Valid @RequestBody Operation operation) {
+	public Operation saveRetrait(@Valid @RequestBody Operation operation) throws Exception {
 		Retrait r = new Retrait();
 		r.setDateOperation(operation.getDateOperation());
 		r.setAmount(operation.getAmount());
 		r.setCompte(operation.getCompte());
 		r.setDescription(operation.getDescription());
+		
+		payMyBuddyMetier.retirer(r.getCompte().getCodeCompte(), r.getAmount(), r.getDescription());
 				
-		return operationRepository.save(r);
+		return operation;
 	}
+	
 	/**
-	 * Create - Add a new operation
+	 * Create - Add a new virement
 	 * 
 	 * @param operation 
 	 * @return operation object added
+	 * @throws Exception 
 	 */
-//	@RequestMapping(value = "/operation", method = RequestMethod.POST)
-//	public Operation saveVersement(@Valid @RequestBody Operation operation) {
-//		operation.set
-//		return operationRepository.save(operation);
-//	}
-	/*************************************************/
+	@RequestMapping(value = "/operation/virement/{codeCompte2}", method = RequestMethod.POST)
+	public Operation saveVirement(@PathVariable String codeCompte2, @Valid @RequestBody Operation operation) throws Exception {
+		payMyBuddyMetier.virement(operation.getCompte().getCodeCompte(), codeCompte2, operation.getAmount(), operation.getDescription());
+		return operation;
+	}
+	
 	/**
 	 * Update - update an existing operation
 	 * 
@@ -188,6 +193,24 @@ public class OperationRestService {
 			errors.put(fieldName, errorMessage);
 		});
 		logger.info("the specified Client object is invalid : " + errors);
+		return errors;
+	}
+	
+	/**
+	 * Handle specified types of exceptions ** Processing the conflict errors:
+	 * 
+	 * @param ex argument of method not valid
+	 * @return message of errors
+	 */
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(Exception.class)
+	public Map<String, String> handleExceptions(Exception ex) {
+		Map<String, String> errors = new HashMap<>();
+		String fieldName = "";
+		String errorMessage = ex.getMessage();
+		errors.put(fieldName, errorMessage);
+
+		logger.info("the specified fire station object is invalid : " + errors);
 		return errors;
 	}
 }
